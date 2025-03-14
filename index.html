@@ -29,7 +29,7 @@
             
             <div class="pouring-container">
                 <button id="pourButton" class="pour-button">
-                    <img src="src/images/teapot.png" class="teapot-img" alt="Blue teapot">
+                    <img src="./src/images/teapot.png" class="teapot-img" alt="Blue teapot">
                 </button>
                 
                 <div class="teacup-container">
@@ -86,5 +86,20 @@
     <audio id="completionSound" preload="auto">
         <source src="src/sounds/completion.mp3" type="audio/mpeg">
     </audio>
+    <script>
+      window.addEventListener('load', function() {
+        console.log('Window loaded');
+        
+        // Log all key elements
+        const elements = {
+          teapot: document.querySelector('.teapot-img'),
+          teacup: document.querySelector('.teacup-svg'),
+          teaFill: document.getElementById('teaFill'),
+          pourButton: document.getElementById('pourButton')
+        };
+        
+        console.log('Critical elements:', elements);
+      });
+    </script>
 </body>
 </html>

@@ -31,48 +31,47 @@ const sounds = {
 
 // Function to initialize all sounds
 function initSounds() {
-    // Try to initialize each sound
-    const soundIds = ['pourSound', 'successSound', 'failSound', 'completionSound'];
-    const soundKeys = ['pour', 'success', 'fail', 'completion'];
-    
-    for (let i = 0; i < soundIds.length; i++) {
-        const soundElement = document.getElementById(soundIds[i]);
-        if (soundElement) {
-            sounds[soundKeys[i]] = soundElement;
-            console.log(`Sound ${soundKeys[i]} initialized successfully`);
-        } else {
-            console.warn(`Sound ${soundKeys[i]} not found in the DOM`);
+    try {
+        // Try to initialize each sound
+        const soundIds = ['pourSound', 'successSound', 'failSound', 'completionSound'];
+        const soundKeys = ['pour', 'success', 'fail', 'completion'];
+        
+        for (let i = 0; i < soundIds.length; i++) {
+            const soundElement = document.getElementById(soundIds[i]);
+            if (soundElement) {
+                sounds[soundKeys[i]] = soundElement;
+                console.log(`Sound ${soundKeys[i]} initialized successfully`);
+            } else {
+                console.warn(`Sound ${soundKeys[i]} not found in the DOM`);
+                // Create fallback
+                sounds[soundKeys[i]] = new Audio(`./src/sounds/${soundKeys[i]}.mp3`);
+            }
         }
+    } catch (e) {
+        console.error('Error initializing sounds:', e);
     }
-    
-    // Create sounds programmatically as a fallback
-    if (!sounds.pour) {
-        sounds.pour = new Audio('src/sounds/pour.mp3');
-        console.log('Created pour sound programmatically');
-    }
-    
-    // User interaction is required for sounds to work in many browsers
-    document.addEventListener('click', function() {
-        // Try to play and immediately pause a sound to "unlock" audio
-        try {
-            const unlockSound = sounds.pour || new Audio('src/sounds/pour.mp3');
-            unlockSound.volume = 0.01;
-            unlockSound.play().then(() => {
-                unlockSound.pause();
-                unlockSound.currentTime = 0;
-                console.log('Audio unlocked successfully');
-            }).catch(err => {
-                console.warn('Could not unlock audio:', err);
-            });
-        } catch (e) {
-            console.error('Error trying to unlock audio:', e);
-        }
-    }, { once: true }); // Only run once
 }
 
-// Pour mechanics - start pouring when button is pressed
-pourButton.addEventListener('mousedown', startPouring);
-pourButton.addEventListener('touchstart', startPouring);
+// Make sure DOM is ready before attaching events
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const teaFill = document.getElementById('teaFill');
+    const pourButton = document.getElementById('pourButton');
+    
+    if (!teaFill) {
+        console.error('teaFill element not found');
+    }
+    
+    if (!pourButton) {
+        console.error('pourButton element not found');
+    } else {
+        // Pour mechanics - start pouring when button is pressed
+        pourButton.addEventListener('mousedown', startPouring);
+        pourButton.addEventListener('touchstart', startPouring);
+    }
+    
+    // Rest of your initialization...
+});
 
 // Stop pouring when button is released
 document.addEventListener('mouseup', stopPouring);
@@ -359,29 +358,45 @@ function createPourStream() {
     pourStream = document.createElementNS("http://www.w3.org/2000/svg", "path");
     pourStream.setAttribute('class', 'pour-stream');
     
-    // Get positions for teapot and cup
-    const teapotRect = document.querySelector('.teapot-img').getBoundingClientRect();
-    const teacupRect = document.querySelector('.teacup-svg').getBoundingClientRect();
-    
-    // Adjust spout position for left-tipping teapot in new position
-    const spoutX = teapotRect.left + teapotRect.width * 0.2;
-    const spoutY = teapotRect.top + teapotRect.height * 0.7;
-    
-    // Cup opening is at the top of the cup
-    const cupX = teacupRect.left + (teapotRect.width / 2);
-    const cupY = teacupRect.top + 50;
-    
-    // Calculate the midpoint of the curve, slightly adjusted for gravity
-    const midX = (spoutX + cupX) / 2;
-    const midY = spoutY + (cupY - spoutY) * 0.6; // Make the arc higher in the middle
-    
-    // Create a curved path for the pour stream - more gravity-influenced
-    const pathData = `M${spoutX},${spoutY} Q${midX},${midY} ${cupX},${cupY}`;
-    
-    pourStream.setAttribute('d', pathData);
-    
-    // Add the stream to the document
-    document.body.appendChild(pourStream);
+    try {
+        // Get positions for teapot and cup - add error handling
+        const teapotImg = document.querySelector('.teapot-img');
+        const teacupSvg = document.querySelector('.teacup-svg');
+        
+        if (!teapotImg || !teacupSvg) {
+            console.error('Teapot or teacup elements not found');
+            return;
+        }
+        
+        const teapotRect = teapotImg.getBoundingClientRect();
+        const teacupRect = teacupSvg.getBoundingClientRect();
+        
+        // Log positions for debugging
+        console.log('Teapot position:', teapotRect);
+        console.log('Teacup position:', teacupRect);
+        
+        // Adjust spout position for left-tipping teapot in new position
+        const spoutX = teapotRect.left + teapotRect.width * 0.2;
+        const spoutY = teapotRect.top + teapotRect.height * 0.7;
+        
+        // Cup opening is at the top of the cup
+        const cupX = teacupRect.left + (teapotRect.width / 2);
+        const cupY = teacupRect.top + 50;
+        
+        // Calculate the midpoint of the curve, slightly adjusted for gravity
+        const midX = (spoutX + cupX) / 2;
+        const midY = spoutY + (cupY - spoutY) * 0.6; // Make the arc higher in the middle
+        
+        // Create a curved path for the pour stream - more gravity-influenced
+        const pathData = `M${spoutX},${spoutY} Q${midX},${midY} ${cupX},${cupY}`;
+        
+        pourStream.setAttribute('d', pathData);
+        
+        // Add the stream to the document
+        document.body.appendChild(pourStream);
+    } catch (error) {
+        console.error('Error creating pour stream:', error);
+    }
 }
 
 // Update the DOMContentLoaded event handler for the SVG perfect pour indicator
