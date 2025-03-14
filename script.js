@@ -47,7 +47,7 @@ function initSounds() {
     
     // Create sounds programmatically as a fallback
     if (!sounds.pour) {
-        sounds.pour = new Audio('/pour.mp3');
+        sounds.pour = new Audio('src/sounds/pour.mp3');
         console.log('Created pour sound programmatically');
     }
     
@@ -55,7 +55,7 @@ function initSounds() {
     document.addEventListener('click', function() {
         // Try to play and immediately pause a sound to "unlock" audio
         try {
-            const unlockSound = sounds.pour || new Audio('/sounds/pour.mp3');
+            const unlockSound = sounds.pour || new Audio('src/sounds/pour.mp3');
             unlockSound.volume = 0.01;
             unlockSound.play().then(() => {
                 unlockSound.pause();
