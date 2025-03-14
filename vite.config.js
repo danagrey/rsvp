@@ -3,5 +3,11 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // <-- Correct for Vercel
+  publicDir: 'public',
+  base: './',
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    assetsInlineLimit: 0,
+  }
 });
