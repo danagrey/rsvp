@@ -1,0 +1,467 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', serif;
+    background-color: #f5e8d0; /* More vintage cream color */
+    color: #333333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    border: 20px solid transparent;
+    background-clip: padding-box;
+}
+
+/* Create the fancy border with ::before pseudo-element */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -20px;
+    border: 3px solid #4682B4; /* Steel blue color */
+    background-image: 
+        /* Corners */
+        radial-gradient(circle at top left, #4682B4, #4682B4 15px, transparent 15px),
+        radial-gradient(circle at top right, #4682B4, #4682B4 15px, transparent 15px),
+        radial-gradient(circle at bottom right, #4682B4, #4682B4 15px, transparent 15px),
+        radial-gradient(circle at bottom left, #4682B4, #4682B4 15px, transparent 15px),
+        /* Top decorative element */
+        radial-gradient(circle at top center, transparent, transparent 15px, #4682B4 15px, #4682B4 18px, transparent 18px),
+        /* Bottom decorative element */
+        radial-gradient(circle at bottom center, transparent, transparent 15px, #4682B4 15px, #4682B4 18px, transparent 18px),
+        /* Left decorative element */
+        radial-gradient(circle at left center, transparent, transparent 15px, #4682B4 15px, #4682B4 18px, transparent 18px),
+        /* Right decorative element */
+        radial-gradient(circle at right center, transparent, transparent 15px, #4682B4 15px, #4682B4 18px, transparent 18px);
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-family: 'Georgia', serif;
+    font-size: 3.5rem;
+    color: #4682B4; /* Steel blue color */
+    background-color: transparent;
+    padding: 15px 30px;
+    display: inline-block;
+    position: relative;
+    letter-spacing: 5px;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    font-weight: normal;
+}
+
+/* Add decorative underline to header */
+h1::after {
+    content: '';
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    bottom: 10px;
+    height: 2px;
+    background-color: #4682B4;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+/* Game elements */
+.game-container {
+    margin: 20px auto 40px;
+    padding: 20px;
+}
+
+.teacup-container {
+    position: absolute;
+    bottom: 50px;
+    left: -10px;
+    width: 200px;
+    height: 200px;
+}
+
+.teacup-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.saucer {
+    fill: #fff9f2;
+    stroke: #815b41;
+    stroke-width: 2;
+}
+
+.cup-body {
+    fill: #fff9f2;
+    stroke: #815b41;
+    stroke-width: 2;
+}
+
+.cup-rim {
+    fill: #fff9f2;
+    stroke: #815b41;
+    stroke-width: 2;
+}
+
+.cup-handle {
+    stroke: #815b41;
+    stroke-linecap: round;
+    fill: none;
+}
+
+.tea-fill {
+    fill: #b76835;
+    transition: d 0.2s ease-in-out;
+}
+
+/* Hide the green perfect pour indicator */
+.perfect-pour-indicator {
+    display: none; /* Changed from opacity: 0.6 to completely hide it */
+}
+
+/* These styles are now unnecessary but can be left in place */
+.indicator-line {
+    stroke: #2e7d32;
+    stroke-width: 2;
+}
+
+.indicator-bar {
+    fill: rgba(46, 125, 50, 0.3);
+}
+
+/* Update the instructions styling for the invitation */
+.instructions {
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    color: #333333;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+    border-bottom: 1px solid #4682B4; /* Match tea room blue */
+}
+
+.instructions p {
+    margin-bottom: 10px;
+}
+
+/* Button styles */
+.pour-button {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    z-index: 10;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.pour-button:hover {
+    transform: translateY(-5px);
+}
+
+.pour-button:active {
+    transform: translateY(0px);
+}
+
+.teapot-svg {
+    width: 160px;
+    height: 120px;
+}
+
+.teapot-body, .teapot-lid-base, .teapot-lid-top, .teapot-lid-knob {
+    fill: #92c4e3; /* Light blue similar to the reference image */
+    stroke: #333; /* Darker outline */
+    stroke-width: 2;
+}
+
+.teapot-handle, .teapot-spout {
+    stroke: #333; /* Darker outline */
+    stroke-linecap: round;
+    fill: none;
+}
+
+.button-text {
+    display: none;
+}
+
+/* Steam animation */
+.steam-path {
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 2;
+    fill: none;
+    opacity: 0;
+    animation: steam 3s infinite ease-out;
+}
+
+.steam-path:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.steam-path:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes steam {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) translateX(-5px);
+    }
+}
+
+/* Pouring animation - will be controlled by JS */
+.teapot-svg.pouring {
+    transform: rotate(15deg) translateY(10px);
+    transition: transform 0.3s ease;
+}
+
+/* For the pour stream - will be added dynamically with JS */
+.pour-stream {
+    stroke: #b76835;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 1, 10;
+    stroke-dashoffset: 1;
+    animation: flow 0.5s infinite linear;
+}
+
+@keyframes flow {
+    to {
+        stroke-dashoffset: 11;
+    }
+}
+
+/* Form styles */
+.name-form, .thank-you {
+    position: fixed; /* Fixed position relative to viewport */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center precisely */
+    margin: 0;
+    max-width: 400px;
+    width: 90%;
+    background-color: #f8f4e5;
+    border: 2px solid #4682B4; /* Match the blue border */
+    padding: 30px;
+    z-index: 1000; /* Ensure it's above everything else */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    animation: fadeIn 0.5s ease-in-out; /* Smooth entrance */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px;
+    border: 2px solid #1d3557;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Times New Roman', serif;
+}
+
+#submitName {
+    padding: 10px 20px;
+    background-color: #1d3557;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#submitName:hover {
+    background-color: #2b4b75;
+}
+
+/* Message styles */
+.message {
+    padding: 10px 15px;
+    margin: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    top: 20px; /* Position near the top of the pouring container */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100; /* Higher z-index to ensure it's above everything */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInFixed 0.3s ease forwards;
+    width: 80%;
+    max-width: 250px;
+}
+
+.fail-message {
+    background-color: #ffebee;
+    color: #9e2a2b;
+    border: 1px solid #9e2a2b;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: #1d3557;
+    border: 1px solid #1d3557;
+    font-size: 1.2rem;
+}
+
+/* Sparkle effect */
+.sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: sparkle 1s ease-in-out forwards;
+    z-index: 10;
+}
+
+@keyframes sparkle {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+    }
+    50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 1;
+        box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.7);
+    }
+    100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
+}
+
+@keyframes fadeInFixed {
+    from { opacity: 0; transform: translate(-50%, -10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Perfect pour indicator */
+.perfect-range {
+    position: absolute;
+    right: -20px;
+    width: 5px;
+    height: 20%;
+    background-color: rgba(46, 125, 50, 0.3);
+    top: 20%;
+    z-index: 2;
+}
+
+.perfect-range::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(46, 125, 50, 0.8);
+}
+
+.perfect-range::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(46, 125, 50, 0.8);
+}
+
+/* Add these styles and modify existing ones for the new layout */
+.pouring-container {
+    position: relative;
+    width: 300px;
+    height: 350px;
+    margin: 20px auto;
+}
+
+/* Add styles for the PNG teapot image */
+.teapot-img {
+    width: 140px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+/* Animate the PNG teapot when pouring */
+.teapot-img.pouring {
+    transform: rotate(-18deg) translateX(-10px) translateY(10px);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    .teacup-container {
+        transform: scale(0.9);
+    }
+    
+    /* Ensure game container has appropriate touch area */
+    .game-container {
+        padding: 10px;
+        min-height: 300px;
+    }
+}
+
+/* Add Google Font for vintage look */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/* Alternative header styling with double border effect */
+h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    color: #4682B4;
+    background-color: transparent;
+    border: 2px solid #4682B4;
+    outline: 1px solid #4682B4;
+    outline-offset: 3px;
+    padding: 10px 20px;
+}
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+} 

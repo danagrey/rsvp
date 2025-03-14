@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCOUNTABILITEA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HIGH TEA</h1>
+        </header>
+        
+        <div class="game-container">
+            <div class="instructions">
+                <p>Dearest Friend,</p>
+                <p>Please join us for an afternoon of delightful conversation, delicate pastries, and perfectly steeped tea.</p>
+                <p>🫖 Date: March 29th<br>
+                🍰 Time: 12:30pm<br>
+                🌸 Location: 1327 N McCadden Pl</p>
+                <p>In the art of high tea, pouring the perfect cup is a time-honored tradition — a gentle reminder that patience and precision lead to the finest results. To confirm your RSVP, simply hold the teapot to pour the perfect cup of tea. </p>
+                <p> We look forward to sharing this charming occasion with you.</p>
+                <p>With warm regards,<br>
+                The Diotty Estate</p>
+            </div>
+            
+            <div class="pouring-container">
+                <button id="pourButton" class="pour-button">
+                    <img src="src/images/teapot.png" class="teapot-img" alt="Blue teapot">
+                </button>
+                
+                <div class="teacup-container">
+                    <svg class="teacup-svg" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Saucer -->
+                        <ellipse class="saucer" cx="100" cy="130" rx="80" ry="12" />
+                        
+                        <!-- Cup body - more rounded like the reference image -->
+                        <path class="cup-body" d="M60,50 C60,30 140,30 140,50 C140,60 135,100 135,100 C135,115 65,115 65,100 C65,100 60,60 60,50 Z" />
+                        
+                        <!-- Cup rim -->
+                        <ellipse class="cup-rim" cx="100" cy="50" rx="40" ry="12" />
+                        
+                        <!-- Cup handle - curved like the reference image -->
+                        <path class="cup-handle" d="M140,60 C160,60 160,90 140,90" fill="none" stroke-width="6" stroke-linecap="round" />
+                        
+                        <!-- Tea fill - we'll manipulate this with JS -->
+                        <path id="teaFill" class="tea-fill" d="M65,100 C65,115 135,115 135,100 L135,100 C135,115 65,115 65,100 Z" />
+                        
+                        <!-- Perfect pour indicator on the side of the cup -->
+                        <g class="perfect-pour-indicator">
+                            <line x1="150" y1="60" x2="160" y2="60" class="indicator-line" />
+                            <line x1="150" y1="80" x2="160" y2="80" class="indicator-line" />
+                            <rect x="153" y="60" width="4" height="20" class="indicator-bar" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <div class="name-form" id="nameForm" style="display: none;">
+            <h3>Splendid!</h3>
+            <p>Kindly share your name so we may reserve your place at the table:</p>
+            <input type="text" id="guestName" placeholder="Your Name">
+            <button id="submitName">Confirm RSVP</button>
+        </div>
+        
+        <div class="thank-you" id="thankYou" style="display: none;">
+            <h3>Thank you, <span id="confirmedName"></span>!</h3>
+            <p>Your RSVP has been elegantly steeped and confirmed. We look forward to sharing a delightful afternoon of tea, treats, and treasured company with you.</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <audio id="pourSound" preload="auto">
+        <source src="src/sounds/pour.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="successSound" preload="auto">
+        <source src="src/sounds/success.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="failSound" preload="auto">
+        <source src="src/sounds/fail.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="completionSound" preload="auto">
+        <source src="src/sounds/completion.mp3" type="audio/mpeg">
+    </audio>
+</body>
+</html>
