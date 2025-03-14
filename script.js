@@ -3,7 +3,7 @@ let pouring = false;
 let fillLevel = 0;
 const perfectMin = 80; // Perfect pour minimum percentage
 const perfectMax = 90; // Perfect pour maximum percentage
-const fillSpeed = 1.5; // How fast the cup fills (percentage points per 100ms)
+const fillSpeed = 1; // How fast the cup fills (reduced from 1.5 for a slower pour)
 let animationFrameId = null;
 
 // DOM elements
