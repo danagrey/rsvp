@@ -1,33 +1,10 @@
-import React, { useEffect } from 'react'
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-// Import your script functions
-import { startPouring, stopPouring, initSounds } from './teaPourLogic'
-
 function App() {
   const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    // Initialize your tea pouring logic here
-    const pourButton = document.getElementById('pourButton')
-    if (pourButton) {
-      pourButton.addEventListener('mousedown', startPouring)
-      pourButton.addEventListener('touchstart', startPouring)
-    }
-    
-    initSounds()
-    
-    // Cleanup event listeners
-    return () => {
-      if (pourButton) {
-        pourButton.removeEventListener('mousedown', startPouring)
-        pourButton.removeEventListener('touchstart', startPouring)
-      }
-    }
-  }, [])
 
   return (
     <>
